@@ -1,6 +1,6 @@
 import  { Proyect } from './proyect';
 
-
+/*
 export const PROYECTS: Proyect[] = [
 
     {
@@ -49,4 +49,4 @@ export const PROYECTS: Proyect[] = [
     }
 
 
-  ];
+  ];*/
