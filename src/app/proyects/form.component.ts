@@ -16,6 +16,7 @@ export class FormComponent implements OnInit {
 
   public proyect: Proyect = new Proyect();
   public tittle:string = "Crear Proyecto";
+  errores: string[];
 
   constructor(private proyectService: ProyectService,
     private router: Router,private activatedRoute: ActivatedRoute) { }
@@ -42,17 +43,26 @@ export class FormComponent implements OnInit {
     .subscribe( proyect => {
       this.router.navigate(['/proyects'])
       swal('Nuevo proyecto', `Proyecto ${proyect.name} creado con éxito!`, 'success')
-    }
+    },
+      err => {
+        this.errores = err.error.errors as string[];
+        console.error('Código del error desde el backend: ' + err.status);
+        console.error(err.error.errors);
+      }
     );
   }
 
   update():void{
     this.proyectService.update(this.proyect)
-    .subscribe( proyect => {
+    .subscribe( json => {
       this.router.navigate(['/proyects'])
-      swal('Proyecto Actualizado', `Proyecto ${proyect.name} actualizado con éxito!`, 'success')
+      swal('Proyecto Actualizado', `${json.mensaje}: ${json.proyect.name}`, 'success')
+    },
+    err => {
+      this.errores = err.error.errors as string[];
+      console.error('Código del error desde el backend: ' + err.status);
+      console.error(err.error.errors);
     }
-
-    )
+   );
   }
 }

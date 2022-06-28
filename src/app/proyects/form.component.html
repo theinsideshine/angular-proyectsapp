@@ -1,30 +1,55 @@
+<ul class="alert alert-danger" *ngIf="errores?.length > 0">
+  <li *ngFor="let err of errores">
+    {{ err }}
+  </li>
+</ul>
+
+
 <div class="card bg-dark text-white">
     <div class="card-header">{{ tittle }}</div>
     <div class="card-body">
   
-      <form>
+      <form #proyectForm="ngForm">
         <div class="form-group row">
           <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
-          <div class="col-sm-6">
-            <input type="text"  class="form-control" [(ngModel)]="proyect.name" name="name">
-          </div>
+            <div class="col-sm-6">
+              <input type="text"  class="form-control" [(ngModel)]="proyect.name" name="name" #name="ngModel" > <!-- Si se desea no usar la validacion de spring required minlength="4"-->
+                <div class="alert alert-danger" *ngIf="name.invalid && (name.dirty || name.touched)">
+                   <div *ngIf="name.errors.required">
+                    Nombre es requerido
+                    </div>
+                   <div *ngIf="name.errors.minlength">
+                   Nombre debe tener al menos 4 caracteres
+                  </div>
+                </div>
+            </div>
         </div>
+        
         
         <br>        
   
         <div class="form-group row">
-          <label for="apellido" class="col-form-label col-sm-2">Intencion</label>
+          <label for="intention" class="col-form-label col-sm-2">Intencion</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyect.intention" name="intention">
+            <input type="text" class="form-control" [(ngModel)]="proyect.intention" name="intention" #intention="ngModel"> <!-- required-->
+              <div class="alert alert-danger" *ngIf="intention.invalid && (intention.dirty || intention.touched)">
+                 <div *ngIf="intention.errors.required">
+                    La intencion del proyecto es requerida 
+                  </div>
+              </div>
           </div>
         </div>
-        
         <br>
 
         <div class="form-group row">
-            <label for="apellido" class="col-form-label col-sm-2">Tecnologia</label>
+            <label for="technology" class="col-form-label col-sm-2">Tecnologia</label>
             <div class="col-sm-6">
-              <input type="text" class="form-control" [(ngModel)]="proyect.technology" name="technology">
+              <input type="text" class="form-control" [(ngModel)]="proyect.technology" name="technology" #technology="ngModel"> <!--required-->
+              <div class="alert alert-danger" *ngIf="technology.invalid && (technology.dirty || technology.touched)">
+                <div *ngIf="technology.errors.required">
+                   La tecnologia usa en el proyecto es requerida
+                 </div>
+             </div>
             </div>
         </div>
 
@@ -33,7 +58,12 @@
         <div class="form-group row">
           <label for="email" class="col-form-label col-sm-2">Email</label>
           <div class="col-sm-6">
-            <input type="text" class="form-control" [(ngModel)]="proyect.email" name="email">
+            <input type="text" class="form-control" [(ngModel)]="proyect.email" name="email" #email="ngModel"> <!--required email-->
+             <div class="alert alert-danger" *ngIf="email.invalid && (email.dirty || email.touched)">
+              <div *ngIf="email.errors.required">
+                 Email es requerida
+               </div>
+           </div>
           </div>
         </div>
   
@@ -41,10 +71,10 @@
         
         <div class="form-group row">
           <div class="col-sm-6">
-            <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!proyect.id else elseBlock">Crear</button>
+            <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!proyect.id else elseBlock" [disabled]="!proyectForm.form.valid">Crear</button>
   
             <ng-template #elseBlock>
-              <button class="btn btn-primary" role="button" (click)='update()'>Editar</button>
+              <button class="btn btn-primary" role="button" (click)='update()' [disabled]="!proyectForm.form.valid">Editar</button>
             </ng-template>
           </div>
         </div>
