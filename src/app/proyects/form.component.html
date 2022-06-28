@@ -1,0 +1,54 @@
+<div class="card bg-dark text-white">
+    <div class="card-header">{{ tittle }}</div>
+    <div class="card-body">
+  
+      <form>
+        <div class="form-group row">
+          <label for="nombre" class="col-form-label col-sm-2">Nombre</label>
+          <div class="col-sm-6">
+            <input type="text"  class="form-control" [(ngModel)]="proyect.name" name="name">
+          </div>
+        </div>
+        
+        <br>        
+  
+        <div class="form-group row">
+          <label for="apellido" class="col-form-label col-sm-2">Intencion</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyect.intention" name="intention">
+          </div>
+        </div>
+        
+        <br>
+
+        <div class="form-group row">
+            <label for="apellido" class="col-form-label col-sm-2">Tecnologia</label>
+            <div class="col-sm-6">
+              <input type="text" class="form-control" [(ngModel)]="proyect.technology" name="technology">
+            </div>
+        </div>
+
+        <br>
+
+        <div class="form-group row">
+          <label for="email" class="col-form-label col-sm-2">Email</label>
+          <div class="col-sm-6">
+            <input type="text" class="form-control" [(ngModel)]="proyect.email" name="email">
+          </div>
+        </div>
+  
+        <br>
+        
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <button class="btn btn-primary" role="button" (click)='create()' *ngIf="!proyect.id else elseBlock">Crear</button>
+  
+            <ng-template #elseBlock>
+              <button class="btn btn-primary" role="button" (click)='update()'>Editar</button>
+            </ng-template>
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  </div>

@@ -9,10 +9,15 @@ import { FooterComponent } from './footer/footer.component';
 import { AppComponent } from './app.component';
 import { ProyectsComponent } from './proyects/proyects.component';
 import { ProyectService } from './proyects/proyect.service';
+import { FormComponent } from './proyects/form.component';
+import { FormsModule } from '@angular/forms';
 
 const routes: Routes = [
   {path: '', redirectTo: '/proyects', pathMatch: 'full'},
   {path: 'proyects', component: ProyectsComponent},
+  {path: 'proyects/form', component: FormComponent},
+  {path: 'proyects/form/:id', component: FormComponent},
+
 ];
 
 @NgModule({
@@ -20,13 +25,15 @@ const routes: Routes = [
     AppComponent,
     HeaderComponent,
     FooterComponent,
-    ProyectsComponent
+    ProyectsComponent,
+    FormComponent
 
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
-    HttpClientModule
+    HttpClientModule,
+    FormsModule
   ],
   providers: [ ProyectService ],
   bootstrap: [AppComponent]

@@ -3,7 +3,16 @@
     <div class="card-body text-primary">
       <h5 class="card-title">Listado de proyectos</h5>
 
-      <table class="table table-bordered table-striped">
+      <div class="my-2 text-left">
+        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/proyects/form']">
+          Crear Proyecto
+        </button>
+      </div>
+      <div *ngIf="proyects?.length==0" class="alert alert-info">
+        No hay registros en la base de datos
+      </div>
+
+      <table class="table table-bordered table-striped " *ngIf="proyects?.length>0">
         <thead>
           <tr>
             <th>id</th>
@@ -12,6 +21,8 @@
             <th>fecha</th>
             <th>tecnologia</th>
             <th>email</th>
+            <th>editar</th>
+            <th>eliminar</th>
           </tr>
         </thead>
         <tbody>
@@ -22,6 +33,12 @@
             <td>{{ proyect.createAt }}</td>
             <td>{{ proyect.technology }}</td>
             <td>{{ proyect.email }}</td>
+            <td>
+              <button type="button" name="editar" [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>
+            </td>
+            <td>
+            <button type="button" name="eliminar" (click)='delete(proyect)' class="btn btn-danger btn-sm">eliminar</button>
+          </td>
           </tr>
         </tbody>
       </table>
