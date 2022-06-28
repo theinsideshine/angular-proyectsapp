@@ -5,6 +5,7 @@ import { ModalService } from './profile/modal.service';
 
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2'
+import { AuthService } from '../users/auth.service';
 
 
 @Component({
@@ -21,7 +22,8 @@ export class ProyectsComponent implements OnInit {
 
   constructor(private proyectService: ProyectService,
     private modalService: ModalService,
-    private activatedRoute: ActivatedRoute) { 
+    private activatedRoute: ActivatedRoute,
+    public authService: AuthService) { 
    
    
   }

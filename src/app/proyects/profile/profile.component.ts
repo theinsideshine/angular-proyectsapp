@@ -6,6 +6,7 @@ import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
 
 import swal from 'sweetalert2';
+import { AuthService } from 'src/app/users/auth.service';
 
 @Component({
   selector: 'profile-proyect',
@@ -21,7 +22,8 @@ export class ProfileComponent implements OnInit {
   progress: number = 0
 
   constructor(private proyectService: ProyectService,
-  public modalService: ModalService) { }
+  public modalService: ModalService,
+  public authService: AuthService) { }
 
   ngOnInit() {}
   

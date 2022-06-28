@@ -6,7 +6,7 @@
       <h5 class="card-title">Listado de proyectos</h5>
 
       <div class="my-2 text-left">
-        <button class="btn btn-rounded btn-primary" type="button" [routerLink]="['/proyects/form']">
+        <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="button" [routerLink]="['/proyects/form']">
           Crear Proyecto
         </button>
       </div>
@@ -17,19 +17,19 @@
       <table class="table table-bordered table-striped " *ngIf="proyects?.length>0">
         <thead>
           <tr>
-            <th>#</th>
+            <th *ngIf="authService.hasRole('ROLE_USER')">#</th>
             <th>nombre</th>
             <th>intencion</th>            
             <th>fecha</th>
             <th>tecnologia</th>
             <th>email</th>
-            <th>editar</th>
-            <th>eliminar</th>
+            <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
+            <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let proyect of proyects">
-            <td><img (click)="openModal(proyect)" *ngIf="proyect?.image"
+            <td *ngIf="authService.hasRole('ROLE_USER')"><img (click)="openModal(proyect)" *ngIf="proyect?.image"
               src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded"
               style="width:64px; cursor: pointer;">
   
@@ -44,10 +44,10 @@
             <td>{{ proyect.createAt }}</td>
             <td>{{ proyect.technology }}</td>
             <td>{{ proyect.email }}</td>
-            <td>
+            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
               <button type="button" name="editar"  [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>
             </td>
-            <td>
+            <td *ngIf="authService.hasRole('ROLE_ADMIN')">
             <button type="button" name="eliminar" (click)='delete(proyect)' class="btn btn-danger btn-sm">eliminar</button>
           </td>
           </tr>
