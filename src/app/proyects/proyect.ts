@@ -6,6 +6,7 @@ export class Proyect {
     createAt: string;
     technology: string;
     email: string;
+    image:string;
     
 
 

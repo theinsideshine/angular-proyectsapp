@@ -1,3 +1,5 @@
+<profile-proyect *ngIf="proyectSelect" [proyect] ="proyectSelect"></profile-proyect>
+
 <div class="card border-primary mb-3" >
     <div class="card-header">Proyectos</div>
     <div class="card-body text-primary">
@@ -15,7 +17,7 @@
       <table class="table table-bordered table-striped " *ngIf="proyects?.length>0">
         <thead>
           <tr>
-            <th>id</th>
+            <th>#</th>
             <th>nombre</th>
             <th>intencion</th>            
             <th>fecha</th>
@@ -27,14 +29,23 @@
         </thead>
         <tbody>
           <tr *ngFor="let proyect of proyects">
-            <td>{{ proyect.id }}</td>
+            <td><img (click)="openModal(proyect)" *ngIf="proyect?.image"
+              src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded"
+              style="width:64px; cursor: pointer;">
+  
+              <img (click)="openModal(proyect)" *ngIf="!proyect?.image"
+                src="http://localhost:8080/images/no-usuario.png" alt="Sin foto" class="img-thumbnail rounded"
+                style="width:64px; cursor: pointer;">
+              </td>
+            
+            
             <td>{{ proyect.name}}</td>
             <td>{{ proyect.intention }}</td>            
             <td>{{ proyect.createAt }}</td>
             <td>{{ proyect.technology }}</td>
             <td>{{ proyect.email }}</td>
             <td>
-              <button type="button" name="editar" [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>
+              <button type="button" name="editar"  [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>
             </td>
             <td>
             <button type="button" name="eliminar" (click)='delete(proyect)' class="btn btn-danger btn-sm">eliminar</button>

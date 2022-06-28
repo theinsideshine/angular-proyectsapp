@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 //import { PROYECTS } from './proyects.json';
 import { Proyect } from './proyect';
 import { catchError, Observable, of ,throwError} from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpEvent , HttpRequest} from '@angular/common/http';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
@@ -97,5 +97,21 @@ export class ProyectService {
       })
     );
   }
+
+   
+      uploadImage(file: File, id): Observable<HttpEvent<{}>> {
+
+        let formData = new FormData();
+        formData.append("file", file);
+        formData.append("id", id);
+    
+        const req = new HttpRequest('POST', `${this.urlEndPoint}/upload`, formData, {
+          reportProgress: true
+        });
+    
+        return this.http.request(req);
+    
+      }
+      
 
 }

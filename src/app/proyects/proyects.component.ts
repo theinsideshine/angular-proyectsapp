@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Proyect } from './proyect';
 import { ProyectService } from './proyect.service';
+import { ModalService } from './profile/modal.service';
 
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2'
@@ -15,9 +16,11 @@ export class ProyectsComponent implements OnInit {
 
   proyects: Proyect [];
   paginador: any;
+  proyectSelect: Proyect;
 
 
   constructor(private proyectService: ProyectService,
+    private modalService: ModalService,
     private activatedRoute: ActivatedRoute) { 
    
    
@@ -48,6 +51,15 @@ export class ProyectsComponent implements OnInit {
           this.paginador = response;
         });
     })
+
+    this.modalService.notificarUpload.subscribe(proyect => {
+      this.proyects = this.proyects.map(originalProyect => {
+        if (proyect.id == originalProyect.id) {
+          originalProyect.image = proyect.image;
+        }
+        return originalProyect;
+      });
+    });
 }
 
 
@@ -82,6 +94,12 @@ export class ProyectsComponent implements OnInit {
       }
     })
   }
+
+  openModal ( proyect:Proyect){
+    this.proyectSelect= proyect;
+    this.modalService.openModal();
+  }
+  
 
 }
 /*prueba git*/

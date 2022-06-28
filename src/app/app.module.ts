@@ -12,6 +12,8 @@ import { ProyectService } from './proyects/proyect.service';
 import { FormComponent } from './proyects/form.component';
 import { FormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ProfileComponent } from './proyects/profile/profile.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/proyects', pathMatch: 'full'},
@@ -19,6 +21,7 @@ const routes: Routes = [
   {path: 'proyects/form', component: FormComponent},
   {path: 'proyects/form/:id', component: FormComponent},
   {path: 'proyects/page/:page', component: ProyectsComponent },
+ 
 
 ];
 
@@ -29,14 +32,16 @@ const routes: Routes = [
     FooterComponent,
     ProyectsComponent,
     FormComponent,
-    PaginatorComponent
+    PaginatorComponent,
+    ProfileComponent
 
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    BrowserAnimationsModule
   ],
   providers: [ ProyectService ],
   bootstrap: [AppComponent]
