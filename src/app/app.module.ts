@@ -11,12 +11,14 @@ import { ProyectsComponent } from './proyects/proyects.component';
 import { ProyectService } from './proyects/proyect.service';
 import { FormComponent } from './proyects/form.component';
 import { FormsModule } from '@angular/forms';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 const routes: Routes = [
   {path: '', redirectTo: '/proyects', pathMatch: 'full'},
   {path: 'proyects', component: ProyectsComponent},
   {path: 'proyects/form', component: FormComponent},
   {path: 'proyects/form/:id', component: FormComponent},
+  {path: 'proyects/page/:page', component: ProyectsComponent },
 
 ];
 
@@ -26,7 +28,8 @@ const routes: Routes = [
     HeaderComponent,
     FooterComponent,
     ProyectsComponent,
-    FormComponent
+    FormComponent,
+    PaginatorComponent
 
   ],
   imports: [

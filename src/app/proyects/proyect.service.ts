@@ -5,6 +5,7 @@ import { catchError, Observable, of ,throwError} from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
+import { formatDate } from '@angular/common';
 
 import swal from 'sweetalert2';
 
@@ -18,11 +19,28 @@ export class ProyectService {
   constructor(private http: HttpClient, private router: Router) { }
 
 
-  getProyects(): Observable <Proyect[]>{
-    return this.http.get(this.urlEndPoint).pipe(
-      map ( (response)=> response  as Proyect[])
+  getProyects(page: number): Observable<any> {
+    return this.http.get(this.urlEndPoint + '/page/' + page).pipe(/*
+      tap((response: any) => {
+        console.log('ClienteService: tap 1');
+        (response.content as Cliente[]).forEach(cliente => console.log(cliente.nombre));
+      }),*/
+      map((response: any) => {
+        (response.content as Proyect[]).map(proyect => {
+          proyect.name = proyect.name.toUpperCase();
+          //let datePipe = new DatePipe('es');
+          //cliente.createAt = datePipe.transform(cliente.createAt, 'EEEE dd, MMMM yyyy');
+          //cliente.createAt = formatDate(cliente.createAt, 'dd-MM-yyyy', 'es');
+          return proyect;
+        });
+        return response;
+      }),/*
+      tap(response => {
+        console.log('ClienteService: tap 2');
+        (response.content as Cliente[]).forEach(cliente => console.log(cliente.nombre));
+      })*/
     );
-  } 
+  }
 
   
   create(proyect: Proyect): Observable<Proyect> {

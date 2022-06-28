@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Proyect } from './proyect';
 import { ProyectService } from './proyect.service';
 
+import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2'
 
 
@@ -13,18 +14,43 @@ import swal from 'sweetalert2'
 export class ProyectsComponent implements OnInit {
 
   proyects: Proyect [];
+  paginador: any;
 
 
-  constructor(private proyectService: ProyectService) { 
+  constructor(private proyectService: ProyectService,
+    private activatedRoute: ActivatedRoute) { 
    
    
   }
-
+/*
   ngOnInit(): void {
     this.proyectService.getProyects().subscribe(
       proyects => this.proyects = proyects
    );
-  }
+  }*/
+
+  ngOnInit() {
+
+    this.activatedRoute.paramMap.subscribe(params => {
+      let page: number = +params.get('page'); // Convierte el string a integer
+
+      if (!page) {
+        page = 0;
+      }
+       this.proyectService.getProyects(page)
+        .pipe(/*
+          tap(response => {
+            console.log('ClientesComponent: tap 3');
+            (response.content as Cliente[]).forEach(cliente => console.log(cliente.nombre));
+          })*/
+        ).subscribe(response => {
+          this.proyects = response.content as Proyect[];
+          this.paginador = response;
+        });
+    })
+}
+
+
   delete(proyect: Proyect): void {
     swal({
       title: 'Está seguro?',
