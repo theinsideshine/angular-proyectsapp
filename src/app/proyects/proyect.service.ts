@@ -6,6 +6,7 @@ import { HttpClient, HttpHeaders, HttpEvent , HttpRequest} from '@angular/common
 import { map } from 'rxjs';
 import { Router } from '@angular/router';
 import { formatDate } from '@angular/common';
+import { Region } from './region';
 
 import swal from 'sweetalert2';
 
@@ -17,6 +18,10 @@ export class ProyectService {
   private httpHeaders = new HttpHeaders({ 'Content-Type': 'application/json' });
  
   constructor(private http: HttpClient, private router: Router) { }
+
+  getRegions(): Observable<Region[]> {
+    return this.http.get<Region[]>(this.urlEndPoint + '/regions');
+  }
 
 
   getProyects(page: number): Observable<any> {

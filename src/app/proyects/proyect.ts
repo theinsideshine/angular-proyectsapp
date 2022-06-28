@@ -1,3 +1,5 @@
+import { Region } from "./region";
+
 export class Proyect {
 
     id: number;
@@ -7,6 +9,7 @@ export class Proyect {
     technology: string;
     email: string;
     image:string;
+    region:Region
     
 
 

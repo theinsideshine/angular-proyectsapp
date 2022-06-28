@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Region } from './region';
 
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -15,28 +16,25 @@ import { ProyectService } from './proyect.service';
 export class FormComponent implements OnInit {
 
   public proyect: Proyect = new Proyect();
+  regions: Region[];
   public tittle:string = "Crear Proyecto";
   errores: string[];
 
   constructor(private proyectService: ProyectService,
     private router: Router,private activatedRoute: ActivatedRoute) { }
 
-  ngOnInit(): void {
-    this.loadProyect()
-    
-  }
+    ngOnInit() {
+      this.activatedRoute.paramMap.subscribe(params => {
+        let id = +params.get('id');
+        if (id) {
+          this.proyectService.getProyect(id).subscribe((proyect) => this.proyect = proyect);
+        }
+      });
+  
+      this.proyectService.getRegions().subscribe(regions => this.regions= regions);
+    }
 
-  loadProyect(): void{
-    
-    this.activatedRoute.params.subscribe(params => {
-      let id = params['id']
-      
-      if(id){
-        this.proyectService.getProyect(id).subscribe( (proyect) => this.proyect = proyect)
-        
-      }
-    })
-  }
+ 
 
   public create():void {
     this.proyectService.create(this.proyect)
@@ -64,5 +62,13 @@ export class FormComponent implements OnInit {
       console.error(err.error.errors);
     }
    );
+  }
+
+  compareRegion(o1: Region, o2: Region): boolean {
+    if (o1 === undefined && o2 === undefined) {
+      return true;
+    }
+
+    return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id === o2.id;
   }
 }
