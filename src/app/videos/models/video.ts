@@ -8,7 +8,7 @@ export class Video {
   observation: string;
   videoUrl: string;
   items: Array<ItemVideo> = [];
-  proyet: Proyect;
+  proyect: Proyect;
   total: number;
   createAt: string;
 

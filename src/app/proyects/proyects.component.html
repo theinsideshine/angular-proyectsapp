@@ -17,19 +17,20 @@
       <table class="table table-bordered table-striped " *ngIf="proyects?.length>0">
         <thead>
           <tr>
-            <th >#</th>
+            <th *ngIf="authService.hasRole('ROLE_USER')" >#</th>
             <th>nombre</th>
             <th>intencion</th>            
             <th>fecha</th>
             <th>tecnologia</th>
             <th>email</th>
+            <th  *ngIf="authService.hasRole('ROLE_ADMIN')">crear factura</th>
             <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
             <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
           </tr>
         </thead>
         <tbody>
           <tr *ngFor="let proyect of proyects">
-            <td ><img (click)="openModal(proyect)" *ngIf="proyect?.image"
+            <td *ngIf="authService.hasRole('ROLE_USER')" ><img (click)="openModal(proyect)" *ngIf="proyect?.image"
               src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded"
               style="width:64px; cursor: pointer;">
   
@@ -44,6 +45,7 @@
             <td>{{ proyect.createAt }}</td>
             <td>{{ proyect.technology }}</td>
             <td>{{ proyect.email }}</td>
+            <td  *ngIf="authService.hasRole('ROLE_ADMIN')"><button type="button" class="btn btn-success btn-sm" [routerLink]="['/videos/form', proyect.id]">crear video</button></td>
             <td *ngIf="authService.hasRole('ROLE_ADMIN')">
               <button type="button" name="editar"  [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>
             </td>

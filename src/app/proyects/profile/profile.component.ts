@@ -4,6 +4,8 @@ import { ProyectService } from '../proyect.service';
 import { ActivatedRoute } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
+import { Video } from '../../videos/models/video';
+import { VideosService } from '../../videos/service/videos.service';
 
 import swal from 'sweetalert2';
 import { AuthService } from 'src/app/users/auth.service';
@@ -23,7 +25,8 @@ export class ProfileComponent implements OnInit {
 
   constructor(private proyectService: ProyectService,
   public modalService: ModalService,
-  public authService: AuthService) { }
+  public authService: AuthService,
+  private videoService: VideosService) { }
 
   ngOnInit() {}
   
@@ -64,5 +67,39 @@ export class ProfileComponent implements OnInit {
     this.imageSelect = null;
     this.progress = 0;
   }
+
+  delete(video: Video): void {
+    swal({
+      title: 'Está seguro?',
+      text: `¿Seguro que desea eliminar el video ${video.description}?`,
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar!',
+      cancelButtonText: 'No, cancelar!',
+      confirmButtonClass: 'btn btn-success',
+      cancelButtonClass: 'btn btn-danger',
+      buttonsStyling: false,
+      reverseButtons: true
+    }).then((result) => {
+      if (result.value) {
+
+        this.videoService.delete(video.id).subscribe(
+          () => {
+            this.proyect.videos = this.proyect.videos.filter(f => f !== video)
+            swal(
+              'Factura Eliminada!',
+              `Factura ${video.description} eliminada con éxito.`,
+              'success'
+            )
+          }
+        )
+
+      }
+    });
+  }
+
+  
 
 }

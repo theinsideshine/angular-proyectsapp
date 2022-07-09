@@ -51,6 +51,8 @@ export class FormComponent implements OnInit {
   }
 
   update():void{
+    console.log(this.proyect);
+    this.proyect.videos = null;
     this.proyectService.update(this.proyect)
     .subscribe( json => {
       this.router.navigate(['/proyects'])

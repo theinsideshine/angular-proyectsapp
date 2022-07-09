@@ -10,7 +10,7 @@ import { AppComponent } from './app.component';
 import { ProyectsComponent } from './proyects/proyects.component';
 import { ProyectService } from './proyects/proyect.service';
 import { FormComponent } from './proyects/form.component';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PaginatorComponent } from './paginator/paginator.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ProfileComponent } from './proyects/profile/profile.component';
@@ -24,6 +24,13 @@ import { RoleGuard } from './users/guards/role.guard';
 import { TokenInterceptor } from './users/interceptors/token.interceptor';
 import { AuthInterceptor } from './users/interceptors/auth.interceptor';
 import { ProfileVideoComponent } from './videos/profile-video.component';
+import { VideosComponent } from './videos/videos.component';
+
+
+import { MatAutocompleteModule } from '@angular/material/autocomplete';
+import { MatInputModule } from '@angular/material/input';
+import { MatFormFieldModule } from '@angular/material/form-field'
+
 
 registerLocaleData(localeES, 'es');
 
@@ -34,7 +41,8 @@ const routes: Routes = [
   {path: 'proyects/form/:id', component: FormComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
   {path: 'proyects/page/:page', component: ProyectsComponent },
   {path: 'login', component: LoginComponent },
-  {path: 'videos/:id', component: ProfileVideoComponent},
+  {path: 'videos/:id', component: ProfileVideoComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_USER' }},
+  {path: 'videos/form/:proyectId', component: VideosComponent,  canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
  
 
 ];
@@ -49,7 +57,8 @@ const routes: Routes = [
     PaginatorComponent,
     ProfileComponent,
     LoginComponent,
-    ProfileVideoComponent
+    ProfileVideoComponent,
+    VideosComponent
 
   ],
   imports: [
@@ -57,7 +66,9 @@ const routes: Routes = [
     RouterModule.forRoot(routes),
     HttpClientModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    MatAutocompleteModule, MatInputModule, MatFormFieldModule,
+    ReactiveFormsModule
   ],
   providers: [ProyectService,
     { provide: LOCALE_ID, useValue: 'es' },

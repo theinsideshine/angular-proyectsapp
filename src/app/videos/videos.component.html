@@ -1,0 +1,95 @@
+<div class="card bg-light">
+    <div class="card-header">{{tittle}}: {{video.description}}</div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a [routerLink]="['/proyects']" class="btn btn-light btn-xs">&laquo; volver</a>
+      </h4>
+  
+      <form #videoForm="ngForm">
+        <div class="form-group row" *ngIf="video.proyect">
+          <label for="cliente" class="col-sm-2 col-form-label">Proyect</label>
+          <div class="col-sm-6">
+            <input type="text" name="cliente" value="{{video.proyect.name}}" class="form-control" disabled>
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="descripcion" class="col-sm-2 col-form-label">Descripción</label>
+          <div class="col-sm-6">
+            <input type="text" name="description" [(ngModel)]="video.description" class="form-control" required #description="ngModel">
+            <div class="alert alert-danger" *ngIf="description.invalid && description.touched || description.invalid && videoForm.submitted">
+              La descripción es requerida.
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="videoUrl" class="col-sm-2 col-form-label">Video Url Id</label>
+          <div class="col-sm-6">
+            <input type="text" name="videoUrl" [(ngModel)]="video.videoUrl" class="form-control" required #videoUrl="ngModel">
+            <div class="alert alert-danger" *ngIf="videoUrl.invalid && videoUrl.touched || videoUrl.invalid && videoForm.submitted">
+              El Id del la URL el video es requerida.
+            </div>
+          </div>
+        </div>
+  
+        <div class="form-group row">
+          <label for="observacion" class="col-sm-2 col-form-label">Observación</label>
+          <div class="col-sm-6">
+            <textarea name="observation" [(ngModel)]="video.observation" class="form-control"></textarea>
+          </div>
+        </div>  
+
+        <div class="form-group row">
+            <div class="col-sm-6">
+              <mat-form-field>
+                <input type="text" placeholder="Añadir producto" aria-label="Products" matInput [formControl]="autocompleteControl" [matAutocomplete]="auto">
+                <mat-autocomplete #auto="matAutocomplete"[displayWith]="nameView" (optionSelected)="productSelect($event)">>
+                  <mat-option *ngFor="let product of productsFilter | async" [value]="product">
+                    {{product.name}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+              <div class="alert alert-danger" *ngIf="autocompleteControl.invalid && videoForm.submitted">
+                El video no puede no tener producto!.
+              </div>
+            </div>
+          </div>
+          <div class="alert alert-info my-4" *ngIf="video.items.length == 0">
+            No hay producto asignado para el video. Debe agregar al menos una!
+          </div>
+
+          <table class="table table-striped table-hover table-sm" *ngIf="video.items.length > 0">
+            <thead>
+              <tr>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+                <th>Eliminar</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of video.items">
+                <td>{{item.product.name}}</td>
+                <td>{{item.product.price}}</td>
+                <td><input type="number" value="{{item.quantity}}" class="form-control col-sm-4" (change)="quantityUpdate(item.product.id, $event)"></td>
+                <td>{{item.amountCalculate()}}</td>
+                <td><button class="btn btn-danger btn-sm" type="button"
+                  (click)="deleteItemVideo(item.product.id)">x</button></td>
+              </tr>
+            </tbody>
+          </table>
+        
+          <h5 class="float-right" *ngIf="video.items.length > 0">Gran Total: <span class="badge badge-secondary">{{video.totalCalculate()}}</span></h5>
+  
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <input type="submit" (click)="create(videoForm)" value="Crear Video" class="btn btn-secondary">
+          </div>
+        </div>
+      </form>
+  
+    </div>
+  </div>
+  
