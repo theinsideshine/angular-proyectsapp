@@ -88,6 +88,41 @@
                   <img *ngIf="proyect?.image" src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded">
                 </div>
               </div>
+
+              <div class="row">
+
+                <div class="alert alert-info my-4" *ngIf="proyect.videos.length == 0">
+                  No hay videos asignados para el proyecto {{proyect.name}} 
+                </div>
+
+                
+                <table class="table table-bordered table-striped my-4"  *ngIf="proyect.videos.length > 0">
+                  <thead>
+                    <tr>
+                      <th>video</th>
+                      <th>descripción</th>
+                      <th>fecha</th>
+                      <th>total</th>
+                      <th>detalle</th>
+                      
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let video of proyect.videos">
+                      <td>{{video.id}}</td>
+                      <td>{{video.description}}</td>
+                      <td>{{video.createAt}}</td>
+                      <td>{{video.total}}</td>
+                      <td><button class="btn btn-primary btn-sm" type="button"
+                        [routerLink]="['/videos', video.id]">ver</button></td>
+                     
+                    </tr>
+                  </tbody>
+                </table>
+
+              </div>
+
+
             </div>
           </div>
           <div class="modal-footer">

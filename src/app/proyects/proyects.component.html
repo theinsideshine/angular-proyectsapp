@@ -17,7 +17,7 @@
       <table class="table table-bordered table-striped " *ngIf="proyects?.length>0">
         <thead>
           <tr>
-            <th *ngIf="authService.hasRole('ROLE_USER')">#</th>
+            <th >#</th>
             <th>nombre</th>
             <th>intencion</th>            
             <th>fecha</th>
@@ -29,7 +29,7 @@
         </thead>
         <tbody>
           <tr *ngFor="let proyect of proyects">
-            <td *ngIf="authService.hasRole('ROLE_USER')"><img (click)="openModal(proyect)" *ngIf="proyect?.image"
+            <td ><img (click)="openModal(proyect)" *ngIf="proyect?.image"
               src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded"
               style="width:64px; cursor: pointer;">
   

@@ -1,0 +1,70 @@
+<div class="card bg-light" *ngIf="video">
+    <div class="card-header">{{tittle}}: {{video.description}}</div>
+    <div class="card-body">
+      <h4 class="card-title">
+        <a [routerLink]="['/proyects']" class="btn btn-light btn-xs">&laquo; volver</a>
+      </h4>
+  
+      <ul class="list-group my-2">
+        <li class="list-group-item list-group-item-primary">Datos del proyecto</li>
+        <li class="list-group-item">{{video.proyect.name}}</li>
+        <li class="list-group-item">{{video.proyect.intention}}</li>
+      </ul>
+  
+     
+
+      <ul class="list-group my-2">
+        
+        <li class="list-group-item list-group-item-primary">Datos del video</li>
+        <li class="list-group-item">Video: {{video.id}}</li>
+        <li class="list-group-item">Descripción: {{video.description}}</li>
+        <li class="list-group-item">Fecha: {{video.createAt}}</li>
+      </ul>
+
+      <ul class="list-group my-2 "style="max-width: 560px;">
+        
+        <li class="list-group-item list-group-item-primary">video</li>
+        
+        <p class="center">
+            <iframe width="560" height="315" [src]="getVideoIframe(video.videoUrl)" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            </p>
+            
+        
+      </ul>
+    
+  
+      <table class="table table-striped table-hover table-bordered my-3">
+        <thead>
+          <tr>
+            <th>Producto</th>
+            <th>Precio</th>
+            <th>Cantidad</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let item of video.items">
+            <td>{{item.product.name}}</td>
+            <td>{{item.product.name}}</td>
+            <td>{{item.quantity}}</td>
+            <td>{{item.amount}}</td>
+          </tr>
+        </tbody>
+      </table>
+      <h5 class="float-right">
+        <span>Gran Total</span>: <span class="badge badge-secondary">{{video.total}}</span>
+      </h5>
+
+      <div class="card border-info mb-4" style="max-width: 350px;">
+        <div class="card card-header">
+          Observaciones
+        </div>
+        <div class="card card-body">
+          <p *ngIf="!video.observation">No tiene observación</p>
+          <p *ngIf="video.observation">{{video.observation}}</p>
+        </div>
+  
+      </div>
+    </div>
+  </div>
+  

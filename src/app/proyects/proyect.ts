@@ -1,3 +1,4 @@
+import { Video } from "../videos/models/video";
 import { Region } from "./region";
 
 export class Proyect {
@@ -9,7 +10,8 @@ export class Proyect {
     technology: string;
     email: string;
     image:string;
-    region:Region
+    region:Region;
+    videos: Array<Video> = [];
     
 
 

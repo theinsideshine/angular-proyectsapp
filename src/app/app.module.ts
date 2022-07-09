@@ -23,6 +23,7 @@ import { RoleGuard } from './users/guards/role.guard';
 
 import { TokenInterceptor } from './users/interceptors/token.interceptor';
 import { AuthInterceptor } from './users/interceptors/auth.interceptor';
+import { ProfileVideoComponent } from './videos/profile-video.component';
 
 registerLocaleData(localeES, 'es');
 
@@ -33,6 +34,7 @@ const routes: Routes = [
   {path: 'proyects/form/:id', component: FormComponent, canActivate: [AuthGuard, RoleGuard],data: { role: 'ROLE_ADMIN' }},
   {path: 'proyects/page/:page', component: ProyectsComponent },
   {path: 'login', component: LoginComponent },
+  {path: 'videos/:id', component: ProfileVideoComponent},
  
 
 ];
@@ -46,7 +48,8 @@ const routes: Routes = [
     FormComponent,
     PaginatorComponent,
     ProfileComponent,
-    LoginComponent
+    LoginComponent,
+    ProfileVideoComponent
 
   ],
   imports: [
