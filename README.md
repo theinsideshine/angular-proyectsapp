@@ -22,7 +22,7 @@ Perfil del proyecto
 
 
 Detalles del video
-![](images/video-proyect.png)
+![](images/videos.png)
 
 Crear video
 ![](images/new-video.png)
