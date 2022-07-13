@@ -3,7 +3,7 @@
 <div class="card border-primary mb-3" >
     <div class="card-header">Proyectos</div>
     <div class="card-body text-primary">
-      <h5 class="card-title">Listado de proyectos</h5>
+      <h4 class="card-title">Listado de proyectos</h4>
 
       <div class="my-2 text-left">
         <button *ngIf="authService.hasRole('ROLE_ADMIN')" class="btn btn-rounded btn-primary" type="button" [routerLink]="['/proyects/form']">
@@ -18,12 +18,11 @@
         <thead>
           <tr>
             <th *ngIf="authService.hasRole('ROLE_USER')" >#</th>
-            <th>nombre</th>
-            <th>intencion</th>            
-            <th>fecha</th>
-            <th>tecnologia</th>
-            <th>email</th>
-            <th  *ngIf="authService.hasRole('ROLE_ADMIN')">crear factura</th>
+            <th>Nombre</th>
+            <th>Intencion</th>            
+            <th>Fecha</th>
+            <th>Tecnologia</th>            
+            <th  *ngIf="authService.hasRole('ROLE_ADMIN')">crear video</th>
             <th *ngIf="authService.hasRole('ROLE_ADMIN')">editar</th>
             <th *ngIf="authService.hasRole('ROLE_ADMIN')">eliminar</th>
           </tr>
@@ -43,8 +42,7 @@
             <td>{{ proyect.name}}</td>
             <td>{{ proyect.intention }}</td>            
             <td>{{ proyect.createAt }}</td>
-            <td>{{ proyect.technology }}</td>
-            <td>{{ proyect.email }}</td>
+            <td>{{ proyect.technology }}</td>            
             <td  *ngIf="authService.hasRole('ROLE_ADMIN')"><button type="button" class="btn btn-success btn-sm" [routerLink]="['/videos/form', proyect.id]">crear video</button></td>
             <td *ngIf="authService.hasRole('ROLE_ADMIN')">
               <button type="button" name="editar"  [routerLink]="['/proyects/form', proyect.id]" class="btn btn-primary btn-sm">editar</button>

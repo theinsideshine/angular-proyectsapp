@@ -7,7 +7,7 @@ import swal from 'sweetalert2';
 import { Product } from './models/product';
 import { Observable } from 'rxjs';
 import { FormControl } from '@angular/forms';
-import { map, flatMap, startWith } from 'rxjs/operators';
+import { map, flatMap } from 'rxjs/operators';
 
 import { MatAutocompleteSelectedEvent } from '@angular/material/autocomplete';
 import { ItemVideo } from './models/item-video';
@@ -120,8 +120,8 @@ export class VideosComponent implements OnInit {
     }
 
     if (videoForm.form.valid && this.video.items.length > 0) {
-      this.videoService.create(this.video).subscribe(factura => {
-        swal(this.tittle, `Factura ${this.video.description} creada con éxito!`, 'success');
+      this.videoService.create(this.video).subscribe(video => {
+        swal(this.tittle, `Video ${this.video.description} creada con éxito!`, 'success');
         this.router.navigate(['/proyects']);
       });
     }

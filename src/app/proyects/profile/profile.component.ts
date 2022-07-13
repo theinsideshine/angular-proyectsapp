@@ -1,7 +1,6 @@
 import { Component, OnInit,Input } from '@angular/core';
 import { Proyect } from '../proyect';
 import { ProyectService } from '../proyect.service';
-import { ActivatedRoute } from '@angular/router';
 import { HttpEventType } from '@angular/common/http';
 import { ModalService } from './modal.service';
 import { Video } from '../../videos/models/video';
@@ -89,8 +88,8 @@ export class ProfileComponent implements OnInit {
           () => {
             this.proyect.videos = this.proyect.videos.filter(f => f !== video)
             swal(
-              'Factura Eliminada!',
-              `Factura ${video.description} eliminada con éxito.`,
+              'Video Eliminada!',
+              `Video ${video.description} eliminada con éxito.`,
               'success'
             )
           }
