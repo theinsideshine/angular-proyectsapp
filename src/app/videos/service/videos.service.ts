@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 import { Video } from '../models/video';
 import { Product } from '../models/product';
 
+import { URL_BACKEND } from '../../config/config';
+
 @Injectable({
   providedIn: 'root'
 })
 export class VideosService {
 
-  private urlEndPoint: string = 'http://localhost:8080/api/videos';
+  private urlEndPoint: string = URL_BACKEND+'/api/videos';
 
   constructor(private http: HttpClient,
     ) { }

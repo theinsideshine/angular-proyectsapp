@@ -102,3 +102,28 @@ export class ProfileComponent implements OnInit {
   
 
 }
+/*
+<!--
+                  <div *ngIf="authService.hasRole('ROLE_ADMIN')" class="input-group mb-3">
+                    <div class="custom-file">
+                      <input (change)="selectImagen($event)" type="file" class="custom-file-input" id="inputGroupFile04" aria-describedby="inputGroupFileAddon04">
+                      <label class="custom-file-label" for="inputGroupFile04">Seleccionar imagen</label>
+                    </div>
+                    <div class="input-group-append">
+                      <button (click)="uploadImage()" [disabled]="!imageSelect" class="btn btn-outline-secondary" type="button" id="inputGroupFileAddon04">Subir</button>
+                    </div>
+                  </div>
+    
+                  <div *ngIf="progress > 0" class="progress" style="height: 40px;">
+                    <div class="progress-bar progress-bar-striped" role="progressbar" [ngStyle]="{width:progress+'%'}" attr.aria-valuenow="{{progress}}" aria-valuemin="0" aria-valuemax="100">
+                      {{progress}}%
+                    </div>
+                  </div>
+                
+                </div>
+    
+                <div class="col-sm">
+                  <img *ngIf="proyect?.image" src="http://localhost:8080/api/uploads/img/{{proyect.image}}" alt="{{proyect.image}}" class="img-thumbnail rounded">
+                </div>
+              </div>-->
+*/

@@ -6,6 +6,7 @@ import { ModalService } from './profile/modal.service';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert2'
 import { AuthService } from '../users/auth.service';
+import { URL_BACKEND } from '../config/config';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class ProyectsComponent implements OnInit {
   proyects: Proyect [];
   paginador: any;
   proyectSelect: Proyect;
+  urlBackend: string =URL_BACKEND;
 
 
   constructor(private proyectService: ProyectService,

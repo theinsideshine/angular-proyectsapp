@@ -8,11 +8,13 @@ import { Router } from '@angular/router';
 
 import { Region } from './region';
 
+import { URL_BACKEND } from '../config/config';
+
 
 @Injectable()
 export class ProyectService {
  
-  private urlEndPoint:string = 'http://localhost:8080/api/proyects';
+  private urlEndPoint:string = URL_BACKEND+'/api/proyects';
   
  
   constructor(private http: HttpClient, private router: Router ) { }
